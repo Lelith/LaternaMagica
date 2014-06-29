@@ -8,19 +8,7 @@
 </head>
 <body>
   <header>
-  	<!-- <%unless session[:user_id]%>
-      <ul class="nav">
-        <li><%= link_to :Signup , :signup, class: "nav_links"%></li>|
-        <li><%= link_to :Login , :login, class: "nav_links"%></li>
-      </ul>
-    <%else%>
-      <ul class="nav">
-        <li><%= link_to :Home , :home, class: "nav_links" %> |</li>
-        <li><%= link_to :Profile , :profile, class: "nav_links" %> |</li>
-        <li><%= link_to :Setting , :setting, class: "nav_links" %> |</li>
-        <li><%= link_to :Logout , :logout, class: "nav_links" %></li>
-      </ul>
-    <%end%> -->
+
   </header>
   <% if flash[:color]== "valid" %>
     <div class="valid_notice">
