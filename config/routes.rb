@@ -1,4 +1,8 @@
-LaternMagika::Application.routes.draw do
+LaternaMagica::Application.routes.draw do
+  match ':controller(/:action(/:id))(.:format)'
+  root :to => 'sessions#login'
+  get "users/new"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

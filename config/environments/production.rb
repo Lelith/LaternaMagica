@@ -1,4 +1,4 @@
-LaternMagika::Application.configure do
+LaternaMagica::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests

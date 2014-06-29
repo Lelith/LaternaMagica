@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-LaternMagika::Application.load_tasks
+LaternaMagica::Application.load_tasks
