@@ -1,0 +1,13 @@
+<h1>Users#new</h1>
+<p>Find me in app/views/users/new.html.erb</p>
+<%  @page_title = "LaternaMagica | Signup"%>
+<article id="signup">
+ <%= form_for(:user, :url => {:controller => 'users', :action => 'create'}) do |f| %>
+ <fieldset>
+   <dl>
+     <dd><%= label_tag 'username' 'Your username' %></dd>
+     <dt><%= text_field_tag 'username' %></dt>
+   </dl>
+ </fieldset>
+ <% end %>
+</article>
