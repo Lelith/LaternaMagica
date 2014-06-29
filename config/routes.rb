@@ -1,4 +1,12 @@
 LaternaMagica::Application.routes.draw do
+  get "sessions/login,"
+
+  get "sessions/home,"
+
+  get "sessions/profile,"
+
+  get "sessions/setting"
+
   match ':controller(/:action(/:id))(.:format)'
   root :to => 'sessions#login'
   match "signup", :to => "users#new"
