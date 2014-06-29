@@ -1,11 +1,11 @@
 class SessionsController < ApplicationController
-  def login,
+  def login
   end
 
-  def home,
+  def home
   end
 
-  def profile,
+  def profile
   end
 
   def setting
