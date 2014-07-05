@@ -1,2 +1,24 @@
 <h1>Sessions#login,</h1>
 <p>Find me in app/views/sessions/login,.html.erb</p>
+<%  @page_title = "LaternaMagica | Login"%>
+<article id="login">
+ <%= form_tag(:action => 'login_attempt') do %>
+   <fieldset>
+     <dl>
+        <dd>
+          <%= label_tag 'username_or_email', 'Your username or email adress' %>
+        </dd>
+        <dt>
+          <%= text_field_tag :username_or_email %>
+        </dt>
+        <dd>
+          <%= label_tag 'password', 'Password' %>
+        </dd>
+        <dt>
+          <%= password_field_tag :login_password %>
+        </dt>
+     </dl>
+   </fieldset>
+   <%= submit_tag :login %>
+ <% end %>
+</article>

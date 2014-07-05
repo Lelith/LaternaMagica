@@ -7,9 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <header>
-
-  </header>
+  <%= render "/partials/nav" %>
   <% if flash[:color]== "valid" %>
     <div class="valid_notice">
       <p><%= flash[:notice]%></p>
