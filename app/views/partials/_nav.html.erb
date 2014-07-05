@@ -1,0 +1,12 @@
+<header>
+  <h1><a href="/">Laterna Magica</a></h1>
+  <menu>
+    <% unless session[:user_id ] %>
+      <a href="/signup">Signup</a>
+    <% else %>
+      <a href="/home">home</a>
+      <a href="/profile">profile</a>
+      <a href="/logout">Logout</a>
+    <% end %>
+  </menu>
+</header>
