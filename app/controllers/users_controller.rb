@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+       # Tell the UserMailer to send a welcome email after save
+      UserMailer.welcome(@user).deliver
       flash[:notice] = "You signed up successfully"
       flash[:color] = "valid"
     else
