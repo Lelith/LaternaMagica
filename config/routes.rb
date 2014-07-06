@@ -7,6 +7,7 @@ LaternaMagica::Application.routes.draw do
   match "home", :to => "sessions#home"
   match "profile", :to => "sessions#profile"
   match "setting", :to => "sessions#setting"
+  match "verify", :to => 'users#verify_email'
 
   match "forgot_password", :to => "users#forgot_pwd"
   match "password_reset", :to => "users#password_reset"

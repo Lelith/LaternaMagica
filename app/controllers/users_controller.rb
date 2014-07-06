@@ -9,7 +9,10 @@ class UsersController < ApplicationController
 #create a new user account
   def create
     @user = User.new(params[:user])
-    if @user.save
+    token = generate_token()
+    if @user.valid?
+      @token = @user.user_tokens.create(token_type: 'activate',token:  token, expires_after: 2.hours.from_now)
+      @token.save
        # Tell the UserMailer to send a welcome email after save
       UserMailer.welcome(@user).deliver
       flash[:notice] = "You signed up successfully"
@@ -19,6 +22,16 @@ class UsersController < ApplicationController
       flash[:color] = "invalid"
     end
     render "new"
+  end
+
+  def verify_email
+    mytoken = params.first[0]
+    @token = UserToken.find_by_token(mytoken)
+    @user = User.find_by_id(@token.user_id)
+    if @user
+      @user.update_attributes(:is_active => 1, :activated_at => Time.now)
+      flash[:notice] = "user activated"
+    end
   end
 
 
@@ -43,16 +56,15 @@ class UsersController < ApplicationController
       user.save
       UserMailer.reset_password_email(user).deliver
       flash[:notice] = 'Password instructions have been mailed to you. Please check your inbox.'
-      render :home
+      render 'home'
     else
       @user = User.new
       # put the previous value back.
       @user.username = params[:user][:username]
       flash[:notice] = 'is not a registered user.'
-      render: :home
+      render 'home'
     end
   end
-end
 
 
 # prevalidation before user can see password reset form
@@ -89,3 +101,8 @@ end
         redirect_to :action => "password_new"
     end
   end
+
+  def generate_token
+    return token = SecureRandom.urlsafe_base64
+  end
+end
