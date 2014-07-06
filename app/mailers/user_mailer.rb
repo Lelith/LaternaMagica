@@ -1,9 +1,9 @@
 class UserMailer < ActionMailer::Base
   default from: "laternamagica@snowhitepink.com"
 
-  def welcome(user)
+  def welcome(user, token)
     @user = user
-    @url  = 'localhost:3000'
+    @url  = 'localhost:3000/verify_email?'+token.token
     mail(to: @user.email, subject: 'Welcome to LaternaMagica')
   end
 

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :save_login_state, :only => [:new, :create, :forgot_pwd]
+  before_filter :save_login_state, :only => [:new, :create, :forgot_pwd, :verify_email]
 
 #render new form
   def new
@@ -10,11 +10,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     token = generate_token()
-    if @user.valid?
-      @token = @user.user_tokens.create(token_type: 'activate',token:  token, expires_after: 2.hours.from_now)
+
+    if @user.save
+      @token = @user.user_tokens.create(token_type: 'activate', token: token, expires_after: 2.hours.from_now)
       @token.save
        # Tell the UserMailer to send a welcome email after save
-      UserMailer.welcome(@user).deliver
+      UserMailer.welcome(@user, @token).deliver
       flash[:notice] = "You signed up successfully"
       flash[:color] = "valid"
     else
