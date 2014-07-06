@@ -22,6 +22,11 @@ class User < ActiveRecord::Base
     self.password = nil
   end
 
+  def clear_password_reset
+    self.password_reset_token = nil
+    self.password_expires_after = nil
+  end
+
 
   def self.authenticate(username_or_email="", login_password="")
     if EMAIL_REGEX.match(username_or_email)
