@@ -9,15 +9,8 @@ class UsersController < ApplicationController
 #create a new user account
   def create
     @user = User.new(params[:user])
-    token = generate_token()
-
     if @user.save
-      @token = @user.user_tokens.create(token_type: 'activate', token: token, expires_after: 2.hours.from_now)
-      @token.save
-       # Tell the UserMailer to send a welcome email after save
-      UserMailer.welcome(@user, @token).deliver
-      flash[:notice] = "You signed up successfully"
-      flash[:color] = "valid"
+      send_activation(@user)
     else
       flash[:notice] = "Form is invalid"
       flash[:color] = "invalid"
@@ -25,13 +18,41 @@ class UsersController < ApplicationController
     render "new"
   end
 
+  def send_activation(user)
+    @user = user
+    token = generate_token()
+    @token = @user.user_tokens.create(token_type: 'activate', token: token, expires_after: 2.hours.from_now)
+    @token.save
+     # Tell the UserMailer to send a welcome email after save
+    UserMailer.welcome(@user, @token).deliver
+    flash[:notice] = "You signed up successfully"
+    flash[:color] = "valid"
+  end
+
   def verify_email
     mytoken = params.first[0]
     @token = UserToken.find_by_token(mytoken)
-    @user = User.find_by_id(@token.user_id)
-    if @user
-      @user.update_attributes(:is_active => 1, :activated_at => Time.now)
-      flash[:notice] = "user activated"
+    if @token
+      unless @token.token_type !='activate'
+        if @token.expires_after < DateTime.now
+          @token.destroy
+          flash[:notice] = "The token has already expired, request a new one"
+          render "sessions/home"
+        else
+          @user = User.find_by_id(@token.user_id)
+          if @user
+            @user.update_attributes(:is_active => 1, :activated_at => Time.now)
+            @token.destroy
+            flash[:notice] = "user activated"
+          else
+            flash[:notice] = "does not exist"
+            render "sessions/home"
+          end
+        end
+      end
+    else
+      flash[:notice] = "does not exist"
+      render "sessions/home"
     end
   end
 

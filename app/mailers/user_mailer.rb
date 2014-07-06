@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
 
   def welcome(user, token)
     @user = user
-    @url  = 'localhost:3000/verify_email?'+token.token
+    @url  = 'localhost:3000/verify?'+token.token
     mail(to: @user.email, subject: 'Welcome to LaternaMagica')
   end
 
