@@ -1,0 +1,11 @@
+<h1>Forgot Password</h1>
+
+<%= form_for(:user, :url => {:controller => 'users', :action => 'request_pwd'}) do |f| %>
+  <p>
+    <%= f.label 'username or email:' %><br/>
+    <%= f.text_field :username %>
+  </p>
+  <p>
+    <%= f.submit 'Send Password Reset Instructions' %>
+  </p>
+<% end %>
