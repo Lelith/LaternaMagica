@@ -73,10 +73,10 @@ class UsersController < ApplicationController
     end
 
     if user
-      user.password_reset_token = SecureRandom.urlsafe_base64
-      user.password_expires_after = 2.hours.from_now
-      user.save
-      UserMailer.reset_password_email(user).deliver
+      token = generate_token()
+      pwd_token = user.user_tokens.create(token_type: 'password', token: token, expires_after: 2.hours.from_now)
+      @token.save
+      UserMailer.reset_password_email(user,pwd_token ).deliver
       flash[:notice] = 'Password instructions have been mailed to you. Please check your inbox.'
       render 'home'
     else
@@ -93,19 +93,21 @@ class UsersController < ApplicationController
   def password_reset
     #this ensures that the user is allowed to reset the password by checking the token.
     token = params.first[0]
-    @user = User.find_by_password_reset_token(token)
-
-    if @user.nil?
-      flash[:error] = 'You have not requested a password reset.'
-      render :root
-      return
-    end
-
-    if @user.password_expires_after < DateTime.now
-      @user.clear_password_reset
-      @user.save
-      flash[:error] = 'Password reset has expired. Please request a new password reset.'
-      render :forgot_password
+    @token = UserToken.find_by_token(token)
+    if @token
+      unless @token.token_type !='password'
+        if @token.expires_after < DateTime.now
+          @token.destroy
+          flash[:error] = 'Password reset has expired. Please request a new password reset.'
+          render :forgot_password
+        else
+          @user = User.find_by_id(@token.user_id)
+        if @user.nil?
+          flash[:error] = 'You have not requested a password reset.'
+          render :root
+          return
+        end
+      end
     end
   end
 
