@@ -11,17 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140705124252) do
+ActiveRecord::Schema.define(:version => 20140706090935) do
+
+  create_table "user_tokens", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "token_type"
+    t.string   "token"
+    t.datetime "expires_after"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email"
     t.string   "encrypted_password"
     t.string   "salt"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
-    t.string   "password_reset_token"
-    t.datetime "password_expires_after"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.boolean  "is_active"
+    t.datetime "activated_at"
   end
 
 end
