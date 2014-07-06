@@ -8,6 +8,9 @@ LaternaMagica::Application.routes.draw do
   match "profile", :to => "sessions#profile"
   match "setting", :to => "sessions#setting"
 
+  match "forgot_password", :to => "users#forgot_pwd"
+  match "password_reset", :to => "users#password_reset"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
