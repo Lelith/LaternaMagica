@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @token.save
      # Tell the UserMailer to send a welcome email after save
     UserMailer.welcome(@user, @token).deliver
-    flash[:notice] = "You signed up successfully"
+    flash[:notice] = "Your regisration e-mail has send"
     flash[:color] = "valid"
   end
 
@@ -56,6 +56,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def verification
+    @user = User.new
+  end
+
+  def request_activation
+    username_or_email = params[:user][:username]
+    if username_or_email.rindex('@')
+      user = User.find_by_email(username_or_email)
+    else
+      user = User.find_by_username(username_or_email)
+    end
+
+    if user
+      send_activation(user)
+    else
+      flash[:notice] = "sorry you're not a registered user"
+      render "new"
+    end
+    render "sessions/login"
+  end
 
 #render forgot password view
   def forgot_pwd
@@ -75,16 +95,16 @@ class UsersController < ApplicationController
     if user
       token = generate_token()
       pwd_token = user.user_tokens.create(token_type: 'password', token: token, expires_after: 2.hours.from_now)
-      @token.save
+      pwd_token.save
       UserMailer.reset_password_email(user,pwd_token ).deliver
       flash[:notice] = 'Password instructions have been mailed to you. Please check your inbox.'
-      render 'home'
+      render 'sessions/login'
     else
       @user = User.new
       # put the previous value back.
       @user.username = params[:user][:username]
       flash[:notice] = 'is not a registered user.'
-      render 'home'
+      render 'sessions/login'
     end
   end
 
@@ -98,16 +118,22 @@ class UsersController < ApplicationController
       unless @token.token_type !='password'
         if @token.expires_after < DateTime.now
           @token.destroy
-          flash[:error] = 'Password reset has expired. Please request a new password reset.'
-          render :forgot_password
+          render "forgot_pwd"
+          flash[:notice] = 'Password reset has expired. Please request a new password reset.'
+          return
         else
           @user = User.find_by_id(@token.user_id)
-        if @user.nil?
-          flash[:error] = 'You have not requested a password reset.'
-          render :root
-          return
+          if @user.nil?
+            flash[:notice] = 'You have not requested a password reset.'
+            render "login"
+            return
+          end
         end
       end
+    else
+      render "forgot_pwd"
+      flash[:notice] = 'You have not requested a password reset.'
+      return
     end
   end
 
