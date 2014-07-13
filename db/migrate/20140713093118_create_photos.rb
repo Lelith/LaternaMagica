@@ -1,7 +1,7 @@
 class CreatePhotos < ActiveRecord::Migration
   def up
     create_table :photos do |t|
-      t.belongs_to :gallerie
+      t.belongs_to :gallery
       t.string :name
       t.timestamps
     end
