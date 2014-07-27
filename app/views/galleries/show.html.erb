@@ -5,10 +5,10 @@
 <article id="photos">
   <% for photo in @gallery.photos %>
     <div class="photo">
-      <%= image_tag photo.image_url(:thumb) if photo.image? %>
+      <%#= image_tag photo.image_url(:thumb) if photo.image? %>
       <div class="name"><%= photo.name %></div>
       <div class="actions">
-        <%= link_to "edit", edit_photo_path(painting) %> |
+        <%= link_to "edit", edit_photo_path(photo) %> |
         <%= link_to "remove", photo, :confirm => 'Are you sure?', :method => :delete %>
       </div>
     </div>
@@ -18,6 +18,6 @@
 
 <p>
   <%= link_to "Add a Photo", new_photo_path(:gallery_id => @gallery) %> |
-  <%= link_to "Remove Gallery", @gallery, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Remove Gallery", "#{@gallery.id}/delete" %> |
   <%= link_to "View Galleries", galleries_path %>
 </p>

@@ -21,7 +21,7 @@ class GalleriesController < ApplicationController
       flash[:notice] = "Form is invalid"
       flash[:color] = "invalid"
     end
-    redirect_to '/galleries/index'
+    redirect_to :action => 'index'
   end
 
   def edit
@@ -42,6 +42,6 @@ class GalleriesController < ApplicationController
     @gallery = Gallery.find(params[:id])
     @gallery.destroy
     flash[:notice] = "Successfully destroyed gallery."
-    render 'galleries/index'
+    redirect_to galleries_url
   end
 end

@@ -1,6 +1,9 @@
 LaternaMagica::Application.routes.draw do
-  match ':controller(/:action(/:id))(.:format)'
   root :to => "sessions#login"
+  resources :galleries, :photos, :sessions, :users
+
+
+
   match "signup", :to => "users#new"
   match "login", :to => "sessions#login"
   match "logout", :to => "sessions#logout"
@@ -8,11 +11,11 @@ LaternaMagica::Application.routes.draw do
   match "profile", :to => "sessions#profile"
   match "setting", :to => "sessions#setting"
   match "verify", :to => 'users#verify_email'
+  match "galleries/:id/delete", :to => "galleries#destroy"
 
   match "forgot_password", :to => "users#forgot_pwd"
   match "password_reset", :to => "users#password_reset"
 
-  resources :galleries, :photos
 
 
   # The priority is based upon order of creation:

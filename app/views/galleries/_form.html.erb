@@ -1,5 +1,5 @@
 <h1>gallery formular</h1>
-<%= form_for(:gallery, :url => '/galleries/create') do |f| %>
+<%= form_for(:gallery, :url => {:controller => 'galleries', :action => 'create'}) do |f| %>
   <fieldset>
     <dl>
       <%= f.hidden_field :user_id, :value=> @current_user.id %>

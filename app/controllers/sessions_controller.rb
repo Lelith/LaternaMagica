@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     redirect_to :action => 'login'
   end
 
-  def login_attempt
+  def create
      authorized_user = User.authenticate(params[:username_or_email],params[:login_password])
      if authorized_user
         if authorized_user.is_active
