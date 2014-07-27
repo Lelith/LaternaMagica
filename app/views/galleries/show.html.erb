@@ -8,8 +8,9 @@
       <%#= image_tag photo.image_url(:thumb) if photo.image? %>
       <div class="name"><%= photo.name %></div>
       <div class="actions">
+        <%= link_to "show", photo_path(photo) %>
         <%= link_to "edit", edit_photo_path(photo) %> |
-        <%= link_to "remove", photo, :confirm => 'Are you sure?', :method => :delete %>
+        <%= link_to "remove", "/photo/#{photo.id}/delete", :confirm => 'Are you sure?' %>
       </div>
     </div>
   <% end %>

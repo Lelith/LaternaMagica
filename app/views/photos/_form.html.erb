@@ -1,11 +1,11 @@
 <h1>photo formular</h1>
 <%= form_for(:photo, :url => {:controller => 'photos', :action => 'create'}) do |f| %>
   <fieldset>
-      <%= f.hidden_field :gallery_id %>
+      <%= f.hidden_field :gallery_id , :value => @photo.gallery_id %>
     <dl>
       <dd><%= label_tag 'name', 'photo name' %></dd>
       <dt><%= f.text_field :name %></dt>
     </dl>
 </fieldset>
-  <%= f.submit %>
+  <%= f.submit :create %>
 <% end %>

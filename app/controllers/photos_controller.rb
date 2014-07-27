@@ -5,18 +5,18 @@ class PhotosController < ApplicationController
   end
 
   def new
-    @photo = Photo.new
+    @photo = Photo.new(:gallery_id => params[:gallery_id])
   end
 
   def create
-    @photo = Photo.new(params[:Photo])
+    @photo = Photo.new(params[:photo])
 
     if @photo.save
       flash[:notice] = "Photo saved"
-      redirect to @Photo
+      redirect_to "/galleries/#{@photo.gallery_id}"
     else
       flash[:color] = "invalid"
-      render "photos/index"
+      render :action => :new
     end
   end
 
@@ -38,6 +38,6 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     @photo.destroy
     flash[:notice] = "Successfully destroyed Photo."
-    render 'photos/index'
+    redirect_to "/galleries/#{@photo.gallery_id}"
   end
 end

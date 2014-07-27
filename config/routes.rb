@@ -12,6 +12,7 @@ LaternaMagica::Application.routes.draw do
   match "setting", :to => "sessions#setting"
   match "verify", :to => 'users#verify_email'
   match "galleries/:id/delete", :to => "galleries#destroy"
+  match "photo/:id/delete", :to => "photos#destroy"
 
   match "forgot_password", :to => "users#forgot_pwd"
   match "password_reset", :to => "users#password_reset"
