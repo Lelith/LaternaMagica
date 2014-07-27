@@ -7,7 +7,7 @@ gem 'rails', '3.2.8'
 
 gem 'mysql2'
 
-gem 'bcrypt-ruby', :require => 'bcrypt' 
+gem 'bcrypt-ruby', :require => 'bcrypt'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -22,6 +22,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'carrierwave'
 
 
 # To use ActiveModel has_secure_password
