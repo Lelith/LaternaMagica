@@ -1,1 +1,11 @@
 <h1>gallery formular</h1>
+<%= form_for(:gallery, :url => '/galleries/create') do |f| %>
+  <fieldset>
+    <dl>
+      <%= f.hidden_field :user_id, :value=> @current_user.id %>
+      <dd><%= label_tag 'name', 'gallery name' %></dd>
+      <dt><%= f.text_field :name %></dt>
+    </dl>
+</fieldset>
+  <%= f.submit :create %>
+<% end %>
