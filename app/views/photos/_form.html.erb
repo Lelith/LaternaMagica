@@ -5,6 +5,8 @@
     <dl>
       <dd><%= label_tag 'name', 'photo name' %></dd>
       <dt><%= f.text_field :name %></dt>
+      <dd><%= label_tag 'image', 'image file' %></dd>
+      <dt><%= f.file_field :image %></dt>
     </dl>
 </fieldset>
   <%= f.submit :create %>

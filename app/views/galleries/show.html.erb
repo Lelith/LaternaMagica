@@ -5,7 +5,7 @@
 <article id="photos">
   <% for photo in @gallery.photos %>
     <div class="photo">
-      <%#= image_tag photo.image_url(:thumb) if photo.image? %>
+      <%= image_tag photo.image_url(:thumb).to_s %>
       <div class="name"><%= photo.name %></div>
       <div class="actions">
         <%= link_to "show", photo_path(photo) %>

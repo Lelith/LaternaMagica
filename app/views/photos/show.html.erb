@@ -3,8 +3,8 @@
 <h1>show my photo</h1>
 
 <article id="photo">
-
-
+      <%= image_tag @photo.image_url.to_s %>
+      <div class="name"><%= @photo.name %></div>
 </article>
 
 <p>
