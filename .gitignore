@@ -14,4 +14,7 @@
 /log/*.log
 /tmp
 
+#Ignore updloaded images
+/public/uploads
+
 config/local_env.yml
