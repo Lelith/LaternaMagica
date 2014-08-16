@@ -1,11 +1,11 @@
 <h1>you have to verify your e-mail adress</h1>
 
-<%= form_for(:user, :url => {:controller => 'users', :action => 'request_activation'}) do |f| %>
-  <p>
-    <%= f.label 'username or email:' %><br/>
-    <%= f.text_field :username %>
-  </p>
-  <p>
-    <%= f.submit 'Send verification e-mail again' %>
-  </p>
-<% end %>
+ <%= form_for(:user, :url => {:controller => 'users', :action => 'request_activation'}) do |f| %>
+   <p>
+     <%= f.label 'username or email:' %><br/>
+     <%= f.text_field :username %>
+   </p>
+   <p>
+     <%= f.submit 'Send verification e-mail again' %>
+   </p>
+ <% end %>

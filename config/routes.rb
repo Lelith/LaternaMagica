@@ -11,6 +11,8 @@ LaternaMagica::Application.routes.draw do
   match "profile", :to => "sessions#profile"
   match "setting", :to => "sessions#setting"
   match "verify", :to => 'users#verify_email'
+  match "users/verification", :to => "users#verification"
+  match "users/request_activation", :to => "users#request_activation"
   match "galleries/:id/delete", :to => "galleries#destroy"
   match "photo/:id/delete", :to => "photos#destroy"
 
