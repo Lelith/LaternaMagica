@@ -2,7 +2,7 @@ class GalleriesController < ApplicationController
   before_filter :authenticate_user, :only => [:new, :edit, :index]
 
   def index
-    @galleries = Gallery.all
+    @galleries = Gallery.find(:all, :conditions => [ "user_id = ?", @current_user.id])
   end
 
   def show
