@@ -3,6 +3,8 @@
   <menu>
     <% unless session[:user_id ] %>
       <a href="/signup">Signup</a>
+      |
+      <a href="/login">Login</a>
     <% else %>
       <a href="/home">home</a>
       <a href="/profile">profile</a>
