@@ -5,6 +5,12 @@
       <%= f.hidden_field :user_id, :value=> @current_user.id %>
       <dd><%= label_tag 'name', 'gallery name' %></dd>
       <dt><%= f.text_field :name %></dt>
+      <dt>
+        <label for="gallery_is_private">
+          Private gallery
+          <%= f.check_box :is_private %>
+        </label>
+      </dt>
     </dl>
 </fieldset>
   <%= f.submit :create %>

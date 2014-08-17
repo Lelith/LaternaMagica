@@ -1,24 +1,28 @@
-<%  @page_title = "LaternaMagica | #{@gallery.name}"%>
 
-<h1>show my gallery</h1>
-
-<article id="photos">
-  <% for photo in @gallery.photos %>
-    <div class="photo">
-      <%= image_tag photo.image_url(:thumb).to_s %>
-      <div class="name"><%= photo.name %></div>
-      <div class="actions">
-        <%= link_to "show", photo_path(photo) %>
-        <%= link_to "edit", edit_photo_path(photo) %> |
-        <%= link_to "remove", "/photo/#{photo.id}/delete", :confirm => 'Are you sure?' %>
+ <% if @gallery %>
+   <%  @page_title = "LaternaMagica | #{@gallery.name}"%>
+  <h1>show my gallery</h1>
+  <article id="photos">
+    <% for photo in @gallery.photos %>
+      <div class="photo">
+        <%= image_tag photo.image_url(:thumb).to_s %>
+        <div class="name"><%= photo.name %></div>
+        <div class="actions">
+          <%= link_to "show", photo_path(photo) %>
+          <%= link_to "edit", edit_photo_path(photo) %> |
+          <%= link_to "remove", "/photo/#{photo.id}/delete", :confirm => 'Are you sure?' %>
+        </div>
       </div>
-    </div>
+    <% end %>
+
+  </article>
+  <%if @gallery.user_id == session[:user_id] %>
+    <p>
+      <%= link_to "Add a Photo", new_photo_path(:@gallery_id => @gallery) %> |
+      <%= link_to "Remove Gallery", "#{@gallery.id}/delete" %> |
+      <%= link_to "View Galleries", galleries_path %>
+    </p>
   <% end %>
-
-</article>
-
-<p>
-  <%= link_to "Add a Photo", new_photo_path(:gallery_id => @gallery) %> |
-  <%= link_to "Remove Gallery", "#{@gallery.id}/delete" %> |
-  <%= link_to "View Galleries", galleries_path %>
-</p>
+<% else %>
+  <%  @page_title = "LaternaMagica | private gallery"%>
+<% end %>

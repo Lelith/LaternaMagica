@@ -6,7 +6,17 @@ class GalleriesController < ApplicationController
   end
 
   def show
-    @gallery = Gallery.find(params[:id])
+    my_gallery = Gallery.find(params[:id])
+    if my_gallery.is_private?
+      if session[:user_id] != my_gallery.user_id
+        flash[:notice] ="this gallery is private"
+        return  false
+      else
+        @gallery = my_gallery
+      end
+    else
+      @gallery = my_gallery
+    end
   end
 
   def new
