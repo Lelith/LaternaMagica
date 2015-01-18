@@ -1,12 +1,16 @@
-<%  @page_title = "LaternaMagica | #{@photo.name}"%>
+<% if @photo %>
+  <%  @page_title = "LaternaMagica | #{@photo.name}"%>
 
-<h1>show my photo</h1>
+  <h1>show my photo</h1>
 
-<article id="photo">
-      <%= image_tag @photo.image_url.to_s %>
-      <div class="name"><%= @photo.name %></div>
-</article>
+  <article id="photo">
+        <%= image_tag @photo.image_url.to_s %>
+        <div class="name"><%= @photo.name %></div>
+  </article>
 
-<p>
-  <%= link_to "View Galleries", galleries_path %>
-</p>
+  <p>
+    <%= link_to "View Galleries", galleries_path %>
+  </p>
+<% else %>
+  <%  @page_title = "LaternaMagica | private gallery"%>
+<% end %>
