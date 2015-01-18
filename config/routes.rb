@@ -17,7 +17,9 @@ LaternaMagica::Application.routes.draw do
   match "photo/:id/delete", :to => "photos#destroy"
 
   match "forgot_password", :to => "users#forgot_pwd"
+  match "users/request_password", :to => "users#request_pwd"
   match "password_reset", :to => "users#password_reset"
+  match "users/create_new_password", :to => "users#create_new_pwd"
 
 
 
