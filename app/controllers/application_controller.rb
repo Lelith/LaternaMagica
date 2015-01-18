@@ -21,4 +21,14 @@ class ApplicationController < ActionController::Base
         return true
       end
     end
+
+    def is_accessable (gallery_id)
+      my_gallery = Gallery.find(gallery_id)
+      if my_gallery.is_private?
+        if session[:user_id] != my_gallery.user_id
+          return false
+        end
+      end
+      return true
+    end
 end
