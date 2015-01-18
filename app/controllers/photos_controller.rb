@@ -1,7 +1,13 @@
 class PhotosController < ApplicationController
 
   def show
-    @photo = Photo.find(params[:id])
+    my_photo = Photo.find(params[:id])
+    photo_gallery = Gallery.find(my_photo.gallery_id)
+    if is_accessable(photo_gallery)
+      @photo = my_photo
+    else
+      flash[:notice] ="this gallery is private"
+    end
   end
 
   def new
