@@ -18,7 +18,7 @@
   </article>
   <%if @gallery.user_id == session[:user_id] %>
     <p>
-      <%= link_to "Add a Photo", new_photo_path(:@gallery_id => @gallery) %> |
+      <%= link_to "Add a Photo", new_photo_path(:gallery_id => @gallery) %> |
       <%= link_to "Remove Gallery", "#{@gallery.id}/delete" %> |
       <%= link_to "View Galleries", galleries_path %>
     </p>
