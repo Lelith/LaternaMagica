@@ -1,15 +1,15 @@
 <header>
   <h1><a href="/">Laterna Magica</a></h1>
-  <menu>
+  <menu class="collapse navbar-collapse">
     <% unless session[:user_id ] %>
       <a href="/signup">Signup</a>
       |
       <a href="/login">Login</a>
     <% else %>
-      <a href="/home">home</a>
-      <a href="/profile">profile</a>
-      <a href="/logout">Logout</a>
-      <%= link_to "View Galleries", galleries_path %>
+      <li><a href="/home">home</a></li>
+        <li><a href="/profile">profile</a></li>
+          <li><a href="/logout">Logout</a></li>
+      <li><%= link_to "View Galleries", galleries_path %></li>
     <% end %>
   </menu>
 </header>
